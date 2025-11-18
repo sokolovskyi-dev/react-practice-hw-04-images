@@ -1,5 +1,5 @@
 import { Formik, Form, Field } from 'formik';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
@@ -13,6 +13,7 @@ export const Input = styled(Field)`
   height: 40px;
   outline: none;
   width: 200px;
+  padding-left: 8px;
   /* outline: 1px solid red; */
 `;
 export const SearchForm = styled(Form)`
@@ -23,6 +24,12 @@ export const SearchForm = styled(Form)`
 // let schema = yup.object().shape({ search: yup.string().required() });
 
 const SearchBar = ({ onSubmit }) => {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   const handleSubmit = (values, actions) => {
     if (!values.search) {
       return toast.error('search is required field');
@@ -45,7 +52,7 @@ const SearchBar = ({ onSubmit }) => {
           <SearchButton type="submit">
             <CiSearch />
           </SearchButton>
-          <Input type="text" name="search" placeholder="Search images and photos..." autoFocus />
+          <Input type="text" name="search" placeholder="Search images..." ref={inputRef} />
         </SearchForm>
       </Formik>
     </Header>

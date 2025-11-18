@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const SearchButton = styled.button`
   padding-left: 12px;
+  padding-right: 12px;
   border: none;
   background-color: #f9f9f9;
   outline: none;

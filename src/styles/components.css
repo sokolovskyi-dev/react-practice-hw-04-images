@@ -8,7 +8,7 @@ label {
   font: inherit;
 }
 
-button {
+/* button {
   cursor: pointer;
   border: none;
   border-radius: var(--radius);
@@ -20,25 +20,26 @@ button {
   display: inline-block;
   will-change: transform, filter;
   user-select: none;
-}
+} */
 
 @media (hover: hover) and (pointer: fine) {
   button:hover:not(:disabled) {
     filter: brightness(1.05);
-    transform: translateY(-1px);
+    cursor: pointer;
+    /* transform: translateY(-1px); */
   }
 }
 
-button:active {
+/* button:active {
   transform: translateY(0);
-}
+} */
 
 button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-input,
+/* input,
 textarea,
 select {
   color: inherit;
@@ -49,14 +50,14 @@ select {
   transition:
     border-color var(--transition),
     box-shadow var(--transition);
-}
+} */
 
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible,
 button:focus-visible {
   outline: none;
-  box-shadow: var(--ring);
+  /* box-shadow: var(--ring); */
 }
 
 a:focus-visible {

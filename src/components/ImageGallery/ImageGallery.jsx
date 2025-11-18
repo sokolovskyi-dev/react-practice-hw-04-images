@@ -16,22 +16,10 @@ import ModalWindow from '../Modal/Modal';
 // `;
 
 const ImageGallery = ({ search, page, onImagesUpdate }) => {
-  // state = {
-  //   images: [],
-  //   isLoading: false,
-  //   isShowModal: false,
-  //   selectedImage: null,
-  // };
-
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isShowModal, setIsShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-
-  // const toggleLoadingStatus = () => {
-  //   // this.setState(prevState => ({ isLoading: !prevState.isLoading }));
-  //   setIsLoading(prev => !prev);
-  // };
 
   useEffect(() => {
     const loadImages = async () => {
@@ -47,8 +35,6 @@ const ImageGallery = ({ search, page, onImagesUpdate }) => {
             onImagesUpdate(imagesToUpdate);
             return imagesToUpdate;
           });
-          // setImages(imagesToUpdate);
-          // onImagesUpdate(imagesToUpdate);
         }
       } catch (error) {
         console.error('Ошибка при загрузке изображений:', error);
@@ -61,34 +47,15 @@ const ImageGallery = ({ search, page, onImagesUpdate }) => {
     loadImages();
   }, [search, page, onImagesUpdate]);
 
-  // async componentDidUpdate(prevProps, prevState) {
-  //   if (prevProps.search !== this.props.search || prevProps.page !== this.props.page) {
-  //     this.setState({ isLoading: true });
+  useEffect(() => {
+    if (isShowModal) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
 
-  //     try {
-  //       const { search, page } = this.props;
-  //       const response = await getImage(search, page);
-  //       const newImages = response.hits;
-  //       console.log('🚀 ~ newImages:', newImages);
-
-  //       if (newImages.length) {
-  //         const imagesToUpdate =
-  //           this.props.page === 1 ? newImages : [...this.state.images, ...newImages];
-
-  //         // console.log(this.state.images);
-  //         // console.log(newImages);
-
-  //         this.setState({ images: imagesToUpdate });
-  //         this.props.onImagesUpdate(imagesToUpdate);
-  //       }
-  //     } catch (error) {
-  //       console.error('Ошибка при загрузке изображений:', error);
-  //       toast.error(error.message);
-  //     } finally {
-  //       this.setState({ isLoading: false });
-  //     }
-  //   }
-  // }
+    return () => document.body.classList.remove('no-scroll');
+  }, [isShowModal]);
 
   const showModal = largeImg => {
     setIsShowModal(true);
@@ -97,7 +64,6 @@ const ImageGallery = ({ search, page, onImagesUpdate }) => {
 
   const closeModal = e => {
     if (e.currentTarget === e.target || e.code === 'Escape') {
-      // this.setState({ isShowModal: false, selectedImage: null });
       setIsShowModal(false);
       setSelectedImage(null);
     }
