@@ -1,34 +1,48 @@
-import { useState } from 'react';
+// import { Component } from 'react';
+// import SearchBar from 'components/Searchbar/SearchBar';
+import { useCallback, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
 
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
+import Button from './components/Button/Button';
+import ImageGallery from './components/ImageGallery/ImageGallery';
+import SearchBar from './components/Searchbar/SearchBar';
+// import ImageGallery from 'components/ImageGallery/ImageGallery';
+// import Button from 'components/Button/Button';
 
-function App() {
-  const [count, setCount] = useState(0);
+const App = () => {
+  // state = { search: '', page: 1, images: [] };
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const [images, setImages] = useState('');
 
+  const onSubmit = ({ search }) => {
+    // this.setState({ search, page: 1, images: [] });
+    setSearch(search);
+    setPage(1);
+    setImages([]);
+  };
+
+  const handleImagesUpdate = useCallback(newImages => {
+    setImages(newImages);
+  }, []);
+
+  const onLoadMore = () => {
+    // console.log('load more click');
+    // this.setState(prevState => ({
+    //   page: prevState.page + 1,
+    // }));
+    setPage(prev => prev + 1);
+  };
+
+  // const { search, page, images } = this.state;
   return (
-    <main className="section container">
-      <div className="flex-center">
-        <a href="https://vite.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <div className="grid-center">
-        <h1 className="text-center">Vite + React + SWC + ESLint + Prettier + alias @</h1>
-        <div className="card grid-center">
-          <button onClick={() => setCount(count => count + 1)}>count is {count}</button>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test HMR
-          </p>
-        </div>
-        <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-      </div>
-    </main>
+    <>
+      <ToastContainer />
+      <SearchBar onSubmit={onSubmit} />
+      <ImageGallery search={search} page={page} onImagesUpdate={handleImagesUpdate} />
+      {images.length > 0 && <Button onClick={onLoadMore} />}
+    </>
   );
-}
+};
 
 export default App;

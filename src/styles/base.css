@@ -101,3 +101,21 @@ video {
     scroll-behavior: auto !important;
   }
 }
+
+.spinner {
+  width: fit-content;
+  /* margin: 40px auto 0; */
+
+  position: fixed;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.loading {
+  opacity: 0.5;
+}
+
+img {
+  object-fit: cover;
+}

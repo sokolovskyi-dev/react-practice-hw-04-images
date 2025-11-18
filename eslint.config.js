@@ -93,9 +93,9 @@ export default [
 
       'no-invalid-this': 'error',
 
-      'prettier/prettier': [
-        'error',
-      ],
+      'prettier/prettier': ['error'],
+
+      'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
     },
   },
 ];
